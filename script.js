@@ -5,10 +5,6 @@ const copiarTextoBtn = document.getElementById("copiar-texto");
 const patrimonioInput = document.getElementById("patrimonio");
 const erroPatrimonio = document.getElementById("erro-patrimonio");
 
-const alertaCustomizado = document.getElementById("alerta-customizado");
-const alertaMensagem = document.getElementById("alerta-mensagem");
-const fecharAlertaBtn = document.getElementById("fechar-alerta");
-
 formulario.addEventListener("submit", function (event) {
   event.preventDefault(); // Evita o envio padrão do formulário
 
@@ -34,7 +30,6 @@ formulario.addEventListener("submit", function (event) {
     patrimonioInput.classList.add("invalid");
     erroPatrimonio.textContent =
       "Todos os patrimônios devem ser números de 6 dígitos.";
-    mostrarAlerta("Todos os patrimônios devem ser números de 6 dígitos.");
     return;
   } else {
     patrimonioInput.classList.remove("invalid");
@@ -68,38 +63,6 @@ copiarTextoBtn.addEventListener("click", function () {
   const textoACopiar = textoGerado.innerText;
 
   navigator.clipboard.writeText(textoACopiar).then(() => {
-    mostrarAlerta("Copiado para área de transferência");
+    alert("Copiado para área de transferência");
   });
-});
-
-patrimonioInput.addEventListener("input", function () {
-  const valorAtual = patrimonioInput.value;
-  const numerosApenas = valorAtual.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-  patrimonioInput.value = numerosApenas; // Atualiza o valor do campo apenas com números
-
-  // Verificar se há letras no valor atual
-  if (/[a-zA-Z]/.test(valorAtual)) {
-    mostrarAlerta("O campo Patrimônio aceita apenas números.");
-  } else {
-    alertaCustomizado.style.display = "none"; // Esconder o alerta se o valor estiver correto
-  }
-});
-
-function mostrarAlerta(mensagem) {
-  alertaMensagem.textContent = mensagem;
-  alertaCustomizado.style.display = "block";
-}
-
-patrimonioInput.addEventListener("input", function () {
-  patrimonioInput.classList.remove("invalid");
-  erroPatrimonio.textContent = "";
-});
-
-function mostrarAlerta(mensagem) {
-  alertaMensagem.textContent = mensagem;
-  alertaCustomizado.style.display = "block";
-}
-
-fecharAlertaBtn.addEventListener("click", function () {
-  alertaCustomizado.style.display = "none";
 });
