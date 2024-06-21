@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <a target="_blank" href="https://icons8.com/icon/9913/workstation">pc</a>
+    ícone por
+    <a target="_blank" href="https://icons8.com">Icons8</a>
+    <title>Gerador de Descrição para Chamados</title>
+  </head>
+  <body>
+    <h1>
+      Gerador de Descrição para Chamados
+      <img src="./assets/icons8-este-pc-100.png" alt="" />
+    </h1>
+
+    <form id="formulario">
+      <label for="ativo">Ativo:</label>
+      <input type="text" id="ativo" name="ativo" required />
+
+      <label for="patrimonio">Patrimônio:</label>
+      <input
+        type="text"
+        id="patrimonio"
+        name="patrimonio"
+        required
+        placeholder="Digite os patrimônios separados por vírgula, contendo 6 dígitos"
+      />
+      <div id="erro-patrimonio" class="erro-mensagem"></div>
+
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" name="modelo" required />
+
+      <label for="atividade_realizada">Atividade Realizada:</label>
+      <textarea
+        id="atividade_realizada"
+        name="atividade_realizada"
+        rows="5"
+        cols="30"
+        required
+      ></textarea>
+
+      <button type="submit">Gerar</button>
+    </form>
+
+    <div id="resultado" style="display: none">
+      <h2>Texto Gerado:</h2>
+      <p id="texto-gerado"></p>
+      <button id="copiar-texto">Copiar Texto</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
