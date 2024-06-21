@@ -46,6 +46,19 @@ textarea {
   font-size: 16px;
 }
 
+textarea {
+  resize: none;
+}
+
+#ativo {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 button {
   background-color: #ff7500; /* RGB: 255 – 117 – 0 */
   color: #ffffff;
