@@ -66,10 +66,6 @@ formulario.addEventListener("submit", function (event) {
 copiarTextoBtn.addEventListener("click", function () {
   // Usar textoGerado.innerText para obter o texto sem HTML
   const textoACopiar = textoGerado.innerText;
-
-  navigator.clipboard.writeText(textoACopiar).then(() => {
-    mostrarAlerta("Copiado para área de transferência");
-  });
 });
 
 patrimonioInput.addEventListener("input", function () {
