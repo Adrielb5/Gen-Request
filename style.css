@@ -155,23 +155,3 @@ input.invalid {
 }
 
 /* Estilos CSS para o alerta customizado */
-#alerta-customizado {
-  display: none;
-  padding: 10px;
-  background-color: #ff7500; /* Laranja */
-  color: white;
-  text-align: center;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
-}
-#fechar-alerta {
-  cursor: pointer;
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  color: white;
-  font-weight: bold;
-}

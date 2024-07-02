@@ -5,10 +5,6 @@ const copiarTextoBtn = document.getElementById("copiar-texto");
 const patrimonioInput = document.getElementById("patrimonio");
 const erroPatrimonio = document.getElementById("erro-patrimonio");
 
-const alertaCustomizado = document.getElementById("alerta-customizado");
-const alertaMensagem = document.getElementById("alerta-mensagem");
-const fecharAlertaBtn = document.getElementById("fechar-alerta");
-
 formulario.addEventListener("submit", function (event) {
   event.preventDefault(); // Evita o envio padrão do formulário
 
@@ -34,7 +30,6 @@ formulario.addEventListener("submit", function (event) {
     patrimonioInput.classList.add("invalid");
     erroPatrimonio.textContent =
       "Todos os patrimônios devem ser números de 6 dígitos.";
-    mostrarAlerta("Todos os patrimônios devem ser números de 6 dígitos.");
     return;
   } else {
     patrimonioInput.classList.remove("invalid");
@@ -68,7 +63,7 @@ copiarTextoBtn.addEventListener("click", function () {
   const textoACopiar = textoGerado.innerText;
 
   navigator.clipboard.writeText(textoACopiar).then(() => {
-    mostrarAlerta("Copiado para área de transferência");
+    mostrarAlerta("Texto copiado para a área de transferência");
   });
 });
 
@@ -78,10 +73,13 @@ patrimonioInput.addEventListener("input", function () {
 });
 
 function mostrarAlerta(mensagem) {
-  alertaMensagem.textContent = mensagem;
-  alertaCustomizado.style.display = "block";
+  Toastify({
+    text: mensagem,
+    duration: 3000,
+    close: true,
+    gravity: "top", // Posição: top ou bottom
+    position: "right", // left, center ou right
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    stopOnFocus: true, // Mantém o toast aberto ao passar o mouse
+  }).showToast();
 }
-
-fecharAlertaBtn.addEventListener("click", function () {
-  alertaCustomizado.style.display = "none";
-});
