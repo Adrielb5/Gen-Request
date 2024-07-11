@@ -38,13 +38,13 @@ formulario.addEventListener("submit", function (event) {
 
   // Gerar o texto para cada patrimônio
   const textos = patrimoniosArray
-    .map(
-      (pat) => `
-    Ativo: ${ativo}
-    Patrimônio: ${pat}
-    Modelo: ${modelo}
-    Atividade Realizada: ${atividadeRealizada}
-  `
+    .map((pat) =>
+      `
+Ativo: ${ativo}
+Patrimônio: ${pat}
+Modelo: ${modelo}
+Atividade Realizada: ${atividadeRealizada}
+  `.trimStart()
     )
     .join("\n\n");
 
@@ -55,7 +55,8 @@ formulario.addEventListener("submit", function (event) {
 
   textoGerado.innerHTML = textoFormatado; // Exibe o texto formatado na tag <pre>
 
-  resultado.style.display = "block";
+  resultado.style.display = "flex";
+  resultado.style.flexDirection = "column";
 });
 
 copiarTextoBtn.addEventListener("click", function () {
