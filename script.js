@@ -40,8 +40,9 @@ formulario.addEventListener("submit", function (event) {
   const textos = patrimoniosArray
     .map((pat) =>
       `
-Ativo: ${ativo}
+
 Patrimônio: ${pat}
+Ativo: ${ativo}
 Modelo: ${modelo}
 Atividade Realizada: ${atividadeRealizada}
   `.trimStart()
