@@ -153,3 +153,7 @@ input.invalid {
 .alerta button:hover {
   background-color: #cc5c00;
 }
+
+.softwares-instalados{
+  margin-bottom: 15px;
+}
