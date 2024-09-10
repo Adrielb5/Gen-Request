@@ -1,12 +1,11 @@
 const formulario = document.getElementById("formulario");
 const resultado = document.getElementById("resultado");
 const textoGerado = document.getElementById("texto-gerado");
-const copiarTextoBtn = document.getElementById("copiar-texto");
-const patrimonioInput = document.getElementById("patrimonio");
-const erroPatrimonio = document.getElementById("erro-patrimonio");
+const downloadTextoBtn = document.getElementById("download-texto");
+const nomeArquivoInput = document.getElementById("nome-arquivo");
 
-formulario.addEventListener("submit", function (event) {
-  event.preventDefault(); // Evita o envio padrão do formulário
+downloadTextoBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Evita comportamento padrão do botão
 
   const ativo = document.getElementById("ativo").value;
   const patrimonio = document.getElementById("patrimonio").value;
@@ -14,6 +13,11 @@ formulario.addEventListener("submit", function (event) {
   const atividadeRealizada = document.getElementById(
     "atividade_realizada"
   ).value;
+
+  const antivirus = document.getElementById("antivirus").value;
+  const bigfix = document.getElementById("bigfix").value;
+  const saveenergy = document.getElementById("saveenergy").value;
+  const hostname = document.getElementById("hostname").value;
 
   // Dividir os valores de patrimônio por vírgula e remover espaços em branco
   const patrimoniosArray = patrimonio.split(",").map((item) => item.trim());
@@ -27,61 +31,46 @@ formulario.addEventListener("submit", function (event) {
   });
 
   if (!patrimoniosValidos) {
+    const patrimonioInput = document.getElementById("patrimonio");
+    const erroPatrimonio = document.getElementById("erro-patrimonio");
+
     patrimonioInput.classList.add("invalid");
     erroPatrimonio.textContent =
       "Todos os patrimônios devem ser números de 6 dígitos.";
     return;
   } else {
+    const patrimonioInput = document.getElementById("patrimonio");
+    const erroPatrimonio = document.getElementById("erro-patrimonio");
+
     patrimonioInput.classList.remove("invalid");
     erroPatrimonio.textContent = "";
   }
 
   // Gerar o texto para cada patrimônio
   const textos = patrimoniosArray
-    .map((pat) =>
-      `
-
-Patrimônio: ${pat}
-Ativo: ${ativo}
-Modelo: ${modelo}
-Atividade Realizada: ${atividadeRealizada}
-  `.trimStart()
+    .map(
+      (pat) =>
+        `Patrimônio: ${pat}\nAtivo: ${ativo}\nModelo: ${modelo}\nAtividade Realizada: ${atividadeRealizada}\n• Antivírus instalado: ${antivirus}\n• BigFix instalado: ${bigfix}\n• Save Energy instalado: ${saveenergy}\n• Hostname correto: ${hostname}`
     )
     .join("\n\n");
 
-  // Substitui \n por quebra de linha HTML e <br> duplos para separar cada bloco de texto
-  const textoFormatado = textos
-    .replace(/\n/g, "<br>")
-    .replace(/<br><br>/g, "<br><br>");
-
-  textoGerado.innerHTML = textoFormatado; // Exibe o texto formatado na tag <pre>
+  // Substituir \n por quebras de linha HTML
+  const textoFormatado = textos.replace(/\n/g, "<br>");
+  textoGerado.innerHTML = `<pre>${textoFormatado}</pre>`; // Exibe o texto formatado com <pre>
 
   resultado.style.display = "flex";
   resultado.style.flexDirection = "column";
+
+  // Baixar o texto como arquivo .txt
+  const nomeArquivo = nomeArquivoInput.value.trim() || "arquivo"; // Define um nome padrão se o campo estiver vazio
+  downloadTxtFile(textos, nomeArquivo);
 });
 
-copiarTextoBtn.addEventListener("click", function () {
-  // Usar textoGerado.innerText para obter o texto sem HTML
-  const textoACopiar = textoGerado.innerText;
-
-  navigator.clipboard.writeText(textoACopiar).then(() => {
-    mostrarAlerta("Texto copiado para a área de transferência");
-  });
-});
-
-patrimonioInput.addEventListener("input", function () {
-  patrimonioInput.classList.remove("invalid");
-  erroPatrimonio.textContent = "";
-});
-
-function mostrarAlerta(mensagem) {
-  Toastify({
-    text: mensagem,
-    duration: 3000,
-    close: true,
-    gravity: "top", // Posição: top ou bottom
-    position: "right", // left, center ou right
-    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-    stopOnFocus: true, // Mantém o toast aberto ao passar o mouse
-  }).showToast();
+// Função para gerar e baixar o arquivo .txt
+function downloadTxtFile(texto, nomeArquivo) {
+  const blob = new Blob([texto], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${nomeArquivo}.txt`;
+  link.click();
 }

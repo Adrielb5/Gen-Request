@@ -3,60 +3,81 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
     <link rel="stylesheet" href="style.css" />
-    <a target="_blank" href="https://icons8.com/icon/9913/workstation">pc</a>
-    ícone por
-    <a target="_blank" href="https://icons8.com">Icons8</a>
     <title>Gerador de Descrição para Chamados</title>
 </head>
 <body>
     <h1>
       Gerador de Descrição para Chamados
-      <img src="./assets/icons8-este-pc-100.png" alt="" />
+      <img src="./assets/icons8-este-pc-100.png" alt="Ícone do PC" />
     </h1>
 
     <form id="formulario">
-      <label for="patrimonio">Patrimônio:</label>
-      <input
-        type="text"
-        id="patrimonio"
-        name="patrimonio"
-        required
-        placeholder="Digite os patrimônios separados por vírgula, contendo 6 dígitos"
-      />
-      <div id="erro-patrimonio" class="erro-mensagem"></div>
+        <!-- Campo para o nome do arquivo -->
+        <label for="nome-arquivo">Nome do Arquivo:</label>
+        <input type="text" id="nome-arquivo" placeholder="Chamado-12345" />
 
-      <label for="ativo">Ativo:</label>
-      <select id="ativo" name="ativo" required>
-        <option value="PC">PC</option>
-        <option value="Notebook">Notebook</option>
-      </select>
+        <!-- Campo para patrimônio -->
+        <label for="patrimonio">Patrimônio:</label>
+        <input type="text" id="patrimonio" name="patrimonio" required placeholder="Digite os patrimônios separados por vírgula, contendo 6 dígitos" />
+        <div id="erro-patrimonio" class="erro-mensagem"></div>
 
-      <label for="modelo">Modelo:</label>
-      <input type="text" id="modelo" name="modelo" required />
+        <!-- Campo para selecionar o ativo -->
+        <label for="ativo">Ativo:</label>
+        <select id="ativo" name="ativo" required>
+            <option value="PC">PC</option>
+            <option value="Notebook">Notebook</option>
+        </select>
 
-      <label for="atividade_realizada">Atividade Realizada:</label>
-      <textarea
-        id="atividade_realizada"
-        name="atividade_realizada"
-        rows="5"
-        cols="30"
-        required
-      ></textarea>
+        <!-- Campo para modelo -->
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required />
 
-      <button type="submit">Gerar</button>
+        <!-- Campo para atividade realizada -->
+        <label for="atividade_realizada">Atividade Realizada:</label>
+        <textarea id="atividade_realizada" name="atividade_realizada" rows="5" cols="30" required></textarea>
+
+        <!-- Opções para software instalado -->
+        <div class="section">
+            <label for="antivirus">Antivírus instalado:</label>
+            <select id="antivirus">
+                <option value="SIM">SIM</option>
+                <option value="NÃO">NÃO</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label for="bigfix">BigFix instalado:</label>
+            <select id="bigfix">
+                <option value="SIM">SIM</option>
+                <option value="NÃO">NÃO</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label for="saveenergy">Save Energy instalado:</label>
+            <select id="saveenergy">
+                <option value="SIM">SIM</option>
+                <option value="NÃO">NÃO</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label for="hostname">Hostname correto:</label>
+            <select id="hostname">
+                <option value="SIM">SIM</option>
+                <option value="NÃO">NÃO</option>
+            </select>
+        </div>
+
+        <!-- Botão de download -->
+        <button id="download-texto" type="button">Baixar Texto</button>
     </form>
 
-    <div id="resultado" style="display: none">
-      <h2>Texto Gerado:</h2>
-      <p id="texto-gerado"></p>
-      <button id="copiar-texto">Copiar Texto</button>
+    <div id="resultado" style="display:none;">
+        <div id="texto-gerado"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
