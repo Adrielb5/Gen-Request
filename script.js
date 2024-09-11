@@ -2,11 +2,10 @@ const formulario = document.getElementById("formulario");
 const resultado = document.getElementById("resultado");
 const textoGerado = document.getElementById("texto-gerado");
 const downloadTextoBtn = document.getElementById("download-texto");
+const copiarTextoBtn = document.getElementById("copiar-texto"); // Adicionado botão de copiar texto
 const nomeArquivoInput = document.getElementById("nome-arquivo");
 
-downloadTextoBtn.addEventListener("click", function (event) {
-  event.preventDefault(); // Evita comportamento padrão do botão
-
+function gerarTexto() {
   const ativo = document.getElementById("ativo").value;
   const patrimonio = document.getElementById("patrimonio").value;
   const modelo = document.getElementById("modelo").value;
@@ -37,7 +36,7 @@ downloadTextoBtn.addEventListener("click", function (event) {
     patrimonioInput.classList.add("invalid");
     erroPatrimonio.textContent =
       "Todos os patrimônios devem ser números de 6 dígitos.";
-    return;
+    return null;
   } else {
     const patrimonioInput = document.getElementById("patrimonio");
     const erroPatrimonio = document.getElementById("erro-patrimonio");
@@ -61,9 +60,28 @@ downloadTextoBtn.addEventListener("click", function (event) {
   resultado.style.display = "flex";
   resultado.style.flexDirection = "column";
 
-  // Baixar o texto como arquivo .txt
-  const nomeArquivo = nomeArquivoInput.value.trim() || "arquivo"; // Define um nome padrão se o campo estiver vazio
-  downloadTxtFile(textos, nomeArquivo);
+  return textos;
+}
+
+// Evento do botão de "Baixar Texto"
+downloadTextoBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Evita comportamento padrão do botão
+
+  const textos = gerarTexto();
+  if (textos) {
+    const nomeArquivo = nomeArquivoInput.value.trim() || "arquivo"; // Define um nome padrão se o campo estiver vazio
+    downloadTxtFile(textos, nomeArquivo);
+  }
+});
+
+// Evento do botão de "Copiar Texto"
+copiarTextoBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Evita comportamento padrão do botão
+
+  const textos = gerarTexto();
+  if (textos) {
+    copiarTextoGerado(textos); // Chama a função de copiar o texto
+  }
 });
 
 // Função para gerar e baixar o arquivo .txt
@@ -73,4 +91,29 @@ function downloadTxtFile(texto, nomeArquivo) {
   link.href = URL.createObjectURL(blob);
   link.download = `${nomeArquivo}.txt`;
   link.click();
+}
+
+// Função para copiar o texto gerado para a área de transferência
+function copiarTextoGerado(texto) {
+  navigator.clipboard.writeText(texto).then(() => {
+    // Exibe notificação de sucesso usando Toastify
+    Toastify({
+      text: "Texto copiado para a área de transferência!",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#4caf50",
+    }).showToast();
+  }).catch((err) => {
+    // Exibe notificação de erro
+    Toastify({
+      text: "Erro ao copiar o texto!",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#f44336",
+    }).showToast();
+  });
 }
