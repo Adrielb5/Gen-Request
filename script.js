@@ -19,31 +19,34 @@ function gerarTexto() {
   const hostname = document.getElementById("hostname").value;
 
   // Dividir os valores de patrimônio por vírgula e remover espaços em branco
-  const patrimoniosArray = patrimonio.split(",").map((item) => item.trim());
+const patrimoniosArray = patrimonio.split(",").map((item) => item.trim());
 
-  // Validar se todos os valores são números de 6 dígitos
-  let patrimoniosValidos = true;
-  patrimoniosArray.forEach((item) => {
-    if (!/^\d{6}$/.test(item)) {
-      patrimoniosValidos = false;
-    }
-  });
+// Armazenar os patrimônios inválidos
+let patrimoniosInvalidos = [];
 
-  if (!patrimoniosValidos) {
-    const patrimonioInput = document.getElementById("patrimonio");
-    const erroPatrimonio = document.getElementById("erro-patrimonio");
-
-    patrimonioInput.classList.add("invalid");
-    erroPatrimonio.textContent =
-      "Todos os patrimônios devem ser números de 6 dígitos.";
-    return null;
-  } else {
-    const patrimonioInput = document.getElementById("patrimonio");
-    const erroPatrimonio = document.getElementById("erro-patrimonio");
-
-    patrimonioInput.classList.remove("invalid");
-    erroPatrimonio.textContent = "";
+// Validar se todos os valores são números de 6 dígitos
+patrimoniosArray.forEach((item) => {
+  if (!/^\d{6}$/.test(item)) {
+    patrimoniosInvalidos.push(item); // Adiciona item inválido à lista
   }
+});
+
+if (patrimoniosInvalidos.length > 0) {
+  const patrimonioInput = document.getElementById("patrimonio");
+  const erroPatrimonio = document.getElementById("erro-patrimonio");
+
+  patrimonioInput.classList.add("invalid");
+  erroPatrimonio.textContent =
+    `Os seguintes patrimônios são inválidos: ${patrimoniosInvalidos.join(", ")}. Todos os patrimônios devem ser números de 6 dígitos.`;
+  return null;
+} else {
+  const patrimonioInput = document.getElementById("patrimonio");
+  const erroPatrimonio = document.getElementById("erro-patrimonio");
+
+  patrimonioInput.classList.remove("invalid");
+  erroPatrimonio.textContent = "";
+}
+
 
   // Gerar o texto para cada patrimônio
   const textos = patrimoniosArray
