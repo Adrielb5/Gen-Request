@@ -51,7 +51,7 @@ if (patrimoniosInvalidos.length > 0) {
   const textos = patrimoniosArray
     .map(
       (pat) =>
-        `Patrimônio: ${pat}\nAtivo: ${ativo}\nModelo: ${modelo}\nAtividade Realizada: ${atividadeRealizada}\n• Antivírus instalado: ${antivirus}\n• BigFix instalado: ${bigfix}\n• Save Energy instalado: ${saveenergy}\n• Hostname correto: ${hostname}`
+        `Patrimônio: ${pat}\nAtivo: ${ativo}\nModelo: ${modelo}\nAtividade Realizada: ${atividadeRealizada}\n• Antivírus instalado: ${antivirus}\n• Save Energy instalado: ${saveenergy}\n• Hostname correto: ${hostname}`
     )
     .join("\n\n");
 
