@@ -14,7 +14,6 @@ function gerarTexto() {
   ).value;
 
   const antivirus = document.getElementById("antivirus").value;
-  const bigfix = document.getElementById("bigfix").value;
   const saveenergy = document.getElementById("saveenergy").value;
   const hostname = document.getElementById("hostname").value;
 
